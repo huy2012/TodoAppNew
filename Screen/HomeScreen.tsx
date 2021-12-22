@@ -46,22 +46,22 @@ const HomeScreen = ({ navigation }: NativeStackScreenProps<RootStackParamList, '
         Alert.alert('Notification', 'Your are update or delete ?', [
             {
                 text: 'Update',
-                // onPress: () => navigation.navigate("EditScreen", { id: id }),
+                onPress: () => navigation.navigate("EditScreen", { id: id }),
             },
             { text: 'Delete', onPress: () => removeTodo(id), style: 'cancel' },
         ]);
 
 
-    // const renderItem = ( {id , name}: string ) => (
-    //     <View style={styles.item_todo} >
-    //         <TouchableOpacity onPress={() => createTwoButtonAlert(id)}
-    //             style={{ width: WIDTH }} >
-    //             <Text style={styles.name}> {name} </Text>
-    //         </TouchableOpacity>
+    const renderItem = ( { item }: any ) => (
+        <View style={styles.item_todo} >
+            <TouchableOpacity onPress={() => createTwoButtonAlert(item.id)}
+                style={{ width: WIDTH }} >
+                <Text style={styles.name}> {item.name} </Text>
+            </TouchableOpacity>
 
 
-    //     </View>
-    // );
+        </View>
+    );
 
     const refresh = (): void => {
         setRefreshing(true);
@@ -73,16 +73,14 @@ const HomeScreen = ({ navigation }: NativeStackScreenProps<RootStackParamList, '
     return (
         <SafeAreaView style={styles.container}>
 
-            {/* <FlatList
+            <FlatList
                 style={styles.list_layout}
                 data={data}
-                renderItem = { ({item}) => {
-                    <Text > {item.name} </Text>
-                } }
+                renderItem={renderItem}
             keyExtractor={item => item.id}
             refreshing={refreshing}
             onRefresh={() => refresh()}
-            /> */}
+            />
 
             <TouchableOpacity
                 activeOpacity={0.7}
