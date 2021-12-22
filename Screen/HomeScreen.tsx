@@ -16,6 +16,8 @@ const HomeScreen = ({ navigation }: NativeStackScreenProps<RootStackParamList, '
     const [data, setData] = React.useState(null);
     const isDarkMode = useColorScheme() === 'dark';
     const [refreshing, setRefreshing] = useState(false);
+    const imgComplete: string = "https://icon-library.com/images/complete-icon/complete-icon-8.jpg";
+    const imgUnComplete: string = "https://icon-library.com/images/incomplete-icon/incomplete-icon-24.jpg";
 
     useEffect(() => {
         getDATA()
@@ -55,11 +57,17 @@ const HomeScreen = ({ navigation }: NativeStackScreenProps<RootStackParamList, '
     const renderItem = ( { item }: any ) => (
         <View style={styles.item_todo} >
             <TouchableOpacity onPress={() => createTwoButtonAlert(item.id)}
-                style={{ width: WIDTH }} >
+                style={{ 
+                    width: WIDTH , 
+                    flexDirection : "row",
+                    justifyContent : "space-between"                
+                    }} >
                 <Text style={styles.name}> {item.name} </Text>
+                <Image source={{
+                    uri : item.status == true ? imgComplete : imgUnComplete }}
+                style = {{width : 50 , height : 50 , marginRight : 10 , marginBottom : 10}}
+                />
             </TouchableOpacity>
-
-
         </View>
     );
 
@@ -114,9 +122,8 @@ const styles = StyleSheet.create({
     item_todo: {
         flexDirection: "row",
         // backgroundColor: "red",
-        paddingBottom: 10,
-        alignItems: "center",
-        justifyContent: "space-between",
+        marginTop : 10,
+        // marginBottom : 10,
         borderBottomWidth: 1,
     },
 
@@ -138,8 +145,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignSelf: "center",
     },
-
-
 
     btn_radius: {
         paddingTop: 10,
